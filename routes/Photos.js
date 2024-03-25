@@ -5,7 +5,7 @@ const {fileUpload,postUpload,likeController,likedecementController,commentsContr
 const isLogin=require("../middlewares/Authmiddleware")
 photoroute.post("/upload",isLogin,upload.single('file'),fileUpload)
 photoroute.post("/uploadpost",isLogin,postUpload)
-photoroute.post("/deletepost/:id",isLogin,postDelete)
+photoroute.delete("/deletepost/:id",isLogin,postDelete)
 photoroute.post("/likeofpost/:id",isLogin,likeController)
 photoroute.post("/commentonpost/:id",isLogin,commentsController)
 photoroute.get("/comment/:id",commentsgetControllers)

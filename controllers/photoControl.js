@@ -45,13 +45,15 @@ const postUpload = async (req, res) => {
     }
 }
 const postDelete = async (req, res) => {
-    const id = req.user.id
     try {
-        const data=await postmodel.findByIdAndDelete(req.params.id)
+        const {id}=req.params
+        console.log(id)
+        const data=await postmodel.deleteOne({_id:id})
+        const dataa=await postmodel.find({username:req.user.id})
         return res.status(200).json({
             msg:"post deleted sucessfully",
             sucess:true,
-            data:data
+            data:dataa
         })
     } catch (err) {
         return res.status(400).json({
@@ -84,14 +86,14 @@ const likedecementController=async(req,res)=>{
     })
 }
 const commentsController=async(req,res)=>{
-    const id=req.params.id
+    const {id}=req.params
     const {title}=req.body
     if(!req.user.id) return res.status(400).json({msg:"please login to avail this facility"})
     const use=await user.findOne({_id:req.user.id})
-    const data=await postmodel.findByIdAndUpdate(id,{$push:{"comments":{title,userid:use.name}}},{new:true})
+    const data=await postmodel.findByIdAndUpdate({_id:id},{$push:{"comments":{title,userid:use.name}}},{new:true})
     return res.status(200).json({
         success:true,
-        data:data.comments
+        data:data
     })
 }
 const fetchAllpost=async(req,res)=>{
