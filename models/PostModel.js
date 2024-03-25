@@ -26,7 +26,10 @@ const postSchema=new mongoose.Schema({
                 type:String,
             }
         }
-    ]
+    ],
+    name:{
+        type:String
+    }
 })
 
 const post=new mongoose.model("Post",postSchema)
