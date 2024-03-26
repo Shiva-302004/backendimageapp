@@ -1,4 +1,5 @@
 const mongoose=require("mongoose")
+// const { user } = require("./UserModel")
 
 const postSchema=new mongoose.Schema({
     title:{
@@ -13,9 +14,15 @@ const postSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         required:true
     },
-    likes:{
-        type:Number,
-        default:0
+    likes:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"User"
+        }
+    ],
+    name:{
+        type:String,
+        required:true
     },
     comments:[
         {
@@ -26,10 +33,7 @@ const postSchema=new mongoose.Schema({
                 type:String,
             }
         }
-    ],
-    name:{
-        type:String
-    }
+    ]
 })
 
 const post=new mongoose.model("Post",postSchema)
